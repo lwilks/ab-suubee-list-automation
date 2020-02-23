@@ -29,7 +29,9 @@ def createlist(syms, country, listname):
     listname = listname.replace('/', "_")
     listname = listname.replace('\\', "_")
 
-    f= open("ablists/"+listname+".tls","w+")
+    ablists = os.environ['AB_LISTS']
+
+    f= open(ablists+listname+".tls","w+")
 
     #Loop through ticker list and resolve ticker symbols into epics
     for sym in syms:       
