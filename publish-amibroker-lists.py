@@ -51,7 +51,7 @@ def createlist(syms, country, listname, checknewscode=False, printonly=True):
                 continue    
         
         #Search for symbol in IG API. If max hits exceeded (code 403) than wait (for duration specified in timeout variable) then try again
-        r = tryreq('markets?searchTerm='+syms[sym], None, headers, 'GET')           
+        r = tryreq('markets?searchTerm='+sym, None, headers, 'GET')           
         json_data = json.loads(r.text)
 
         #If nothing found, try ticker instead of company name
@@ -278,14 +278,14 @@ def run(event=None,context=None):
     f1= open("lists.txt","r")
     for line1 in f1:
         if f1.mode == 'r':
-            f2= open(line1,"r")
+            f2= open(line1.strip(),"r")
 
             if f2.mode == 'r':
                 syms = []
                 for line2 in f2:
                     syms.append(line2.split('.')[0])
 
-                createlist(syms, 'AU', os.path.basename(line1), printonly=printonly)
+                createlist(syms, 'AU', os.path.basename(line1.strip()), printonly=printonly)
             else:
                 print ("Error opening "+line1+"!")    
         else:
