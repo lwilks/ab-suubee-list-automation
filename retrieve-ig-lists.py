@@ -136,17 +136,21 @@ def run(event=None,context=None):
     leadercount = 0    
     leaders = soup.find('table', class_='strongsectors_table')
     titles = leaders.find_all('div', class_='subtitle_widget')
+    sssyms = {}
     for leader in leaders.find_all('table', class_='subtable'):
         syms = {}
         #Build list of ticker codes from sector table
         for ticker in leader.find_all('tr'):
             try:
                 syms[ticker.find('td').text.strip()] = asxcodes[ticker.find('td').text.strip()]
+                sssyms[ticker.find('td').text.strip()] = asxcodes[ticker.find('td').text.strip()]
             except KeyError:
                 continue
 
         #Submit list to createlist function for tranlation into "epics" and list creation
         createlist(syms, 'AU', titles[leadercount].text)
         leadercount += 1
+    
+    createlist(sssyms, 'AU', 'Suubee_StrongSectors')
 
 run()

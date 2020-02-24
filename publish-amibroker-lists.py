@@ -262,8 +262,6 @@ def run(event=None,context=None):
     #Construct new header for IG with the security token obtained above
     headers = {'Version': '1', 'X-IG-API-KEY': igapikey, 'X-SECURITY-TOKEN': igsectoken, 'CST': igcst}
 	
-    results = []
-	
     r = tryreq('watchlists', None, headers, 'GET')
 
     watchlists = json.loads(r.text)
@@ -287,7 +285,7 @@ def run(event=None,context=None):
 
                 createlist(syms, 'AU', os.path.basename(line1.strip()), printonly=printonly)
             else:
-                print ("Error opening "+line1+"!")    
+                print ("Error opening "+line1.strip()+"!")    
         else:
             print ("Error opening lists.txt!")
 run()
