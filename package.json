@@ -1,0 +1,67 @@
+{
+  "name": "ab-subee-list-automation",
+  "productName": "ab-subee-list-automation",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "Liam Wilks",
+    "email": "liam@liamwilks.onmicrosoft.com"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "ab_subee_list_automation"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "csv-parse": "^4.10.1",
+    "delay": "^4.3.0",
+    "electron-log": "^4.2.2",
+    "electron-progressbar": "^1.2.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "glob": "^7.1.6",
+    "node-ig-api": "^2.0.4",
+    "p-retry": "^4.2.0",
+    "update-electron-app": "^1.5.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.52",
+    "@electron-forge/maker-deb": "6.0.0-beta.52",
+    "@electron-forge/maker-rpm": "6.0.0-beta.52",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.52",
+    "@electron-forge/maker-zip": "6.0.0-beta.52",
+    "electron": "9.1.0"
+  }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Suubee List Automation</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="centered-div">
+      <h1>Configuration</h1>
+    </div>
+    <div class="wrapper">
+      <form>
+        <p>
+          <label for="iguser">IG Username</label>
+          <input type="text" id="iguser" name="iguser" placeholder="Your IG Username...">
+        </p>
+
+        <p>
+          <label for="igpass">IG Password</label>
+          <input type="password" id="igpass" name="igpass" placeholder="Your IG Password...">
+        </p>
+
+        <p class="full-width">
+          <label for="igapi">IG API Key</label>
+          <input type="text" id="igapi" name="igapi" placeholder="Your IG API Key...">
+        </p>
+
+        <p>
+          <label for="ablistpath">AmiBroker Lists Path</label>
+          <input type="text" id="ablistpath" name="ablistpath" placeholder="Path to AmiBroker lists...">
+        </p>
+
+        <p>
+          <a href="index.html"><button id="browse_btn" class="button browse_btn">Browse...</button></a>
+        </p>
+
+        <p class="full-width btn-center">
+          <a href="index.html"><button id="back_btn" class="button">Back</button></a>
+        </p>
+      </form>
+    </div>
+    <script src="configure.js"></script>
+  </body>
+</html>
