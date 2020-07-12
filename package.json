@@ -1,7 +1,7 @@
 {
   "name": "ab-subee-list-automation",
   "productName": "ab-subee-list-automation",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "AmiBroker-Suubee List Automation",
   "main": "src/main.js",
   "scripts": {
@@ -10,6 +10,10 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lwilks/ab-suubee-list-automation.git"
   },
   "keywords": [],
   "author": {
