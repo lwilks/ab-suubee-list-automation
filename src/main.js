@@ -19,11 +19,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
-require('update-electron-app')({
-  repo: 'lwilks/ab-suubee-list-automation',
-  updateInterval: '1 hour',
-  logger: require('electron-log')
-})
+require('update-electron-app')()
 
 var mainWindow
 
