@@ -13,7 +13,7 @@ var get_lists = async function(path) {
   try {
     //var epic_dict = epic_cache.epic_dict
     epic_dicts = await epcache.getEpicDicts()
-    const exchanges = epcache.exchanges
+    const exchanges = epcache.countries
 
     let existingListFiles = glob.sync("SB-*.tls", { cwd: path })
     for (let i = 0; i < existingListFiles.length; i++) {
@@ -49,8 +49,8 @@ var get_lists = async function(path) {
         // Loop through each list and write to file
         let listParser = request(list_record[1]).pipe(parse({ trim: true }))
         for await (const list_entry of listParser) {
-            //var translated_list_entry = epic_dicts.epic_dict[list_entry][0]+'.'+exchanges[epic_dicts.epic_dict[list_entry][1]]+'\n'
-            var translated_list_entry = epic_dicts.epic_dict[list_entry][0]+'.'+epic_dicts.epic_dict[list_entry][1]+'\n'
+            var translated_list_entry = epic_dicts.epic_dict[list_entry][0]+'.'+exchanges[epic_dicts.epic_dict[list_entry][1]]+'\n'
+            //var translated_list_entry = epic_dicts.epic_dict[list_entry][0]+'.'+epic_dicts.epic_dict[list_entry][1]+'\n'
             if (isStrongSector) { strongSectorListFile.write(translated_list_entry) }
             if (!isStrongSector && !isUSList && !isShortList) { allStocksListFile.write(translated_list_entry) }
             if (isUSList && !isUSShortList) { allUSStocksListFile.write(translated_list_entry) }

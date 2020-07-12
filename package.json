@@ -1,8 +1,8 @@
 {
   "name": "ab-subee-list-automation",
   "productName": "ab-subee-list-automation",
-  "version": "1.0.2",
-  "description": "My Electron application description",
+  "version": "1.0.3",
+  "description": "AmiBroker-Suubee List Automation",
   "main": "src/main.js",
   "scripts": {
     "start": "electron-forge start",
