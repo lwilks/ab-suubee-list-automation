@@ -71,6 +71,7 @@ async function tryreq(func) {
 async function createlist(syms, country, listname, listprefix) {
     epics = []
     for (const sym of syms) {
+        let resolved = false
         // Check epic cache and epic overrides first
         exchange = epcache.exchanges[country]
         if (epic_dicts.epic_dict_r.hasOwnProperty(sym+'.'+exchange)) {
@@ -103,9 +104,13 @@ async function createlist(syms, country, listname, listprefix) {
                 // If market id shares in in correct country than select it
                 if ((marketExtendedInfo.marketDetails[0].instrument.type === 'SHARES') && (marketExtendedInfo.marketDetails[0].instrument.country === 'AU')) {
                     epics.push(market.epic)
+                    resolved = true
                     continue
                 }    
             }
+        }
+        if (!resolved) {
+            console.log("SYM NOT RESOLVED: "+sym)
         }
     }
 
@@ -131,6 +136,8 @@ async function createlist(syms, country, listname, listprefix) {
 
 var upload_lists = async function(igusername, igpassword, igapikey, listprefix, selectedlists) {
     try {
+        watchlists = []
+        
         asxcodes = await getASXCompanies()
         epic_dicts = await epcache.getEpicDicts()
         

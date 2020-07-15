@@ -20,9 +20,9 @@ var get_lists = async function(path) {
       fs.unlinkSync(path+'\\'+existingListFiles[i])
     }
 
-    var strongSectorListFile = fs.createWriteStream('SB-Strong Sectors.tls')
-    var allStocksListFile = fs.createWriteStream('SB-All Stocks.tls')
-    var allUSStocksListFile = fs.createWriteStream('SB-US-All Stocks.tls')
+    var strongSectorListFile = fs.createWriteStream(path+'/SB-Strong Sectors.tls')
+    var allStocksListFile = fs.createWriteStream(path+'/SB-All Stocks.tls')
+    var allUSStocksListFile = fs.createWriteStream(path+'/SB-US-All Stocks.tls')
 
     // Cycle through list index and determine list URL's
     const listIndexParser = request(listIndexURL).pipe(parse({ from_line: 2, trim: true }))
@@ -60,7 +60,12 @@ var get_lists = async function(path) {
     }
     strongSectorListFile.end()
     allStocksListFile.end()
+    fs.copyFileSync(allStocksListFile.path, path+"/SB-All Stocks+S&P.tls")
+    fs.copyFileSync(allStocksListFile.path, path+"/SB-All Stocks+P.tls")
+    fs.copyFileSync(allStocksListFile.path, path+"/SB-All Stocks-DT.tls")
     allUSStocksListFile.end()
+    fs.copyFileSync(allUSStocksListFile.path, path+"/SB-US-All Stocks+S&P.tls")
+    fs.copyFileSync(allUSStocksListFile.path, path+"/SB-US-All Stocks+P.tls")
   } catch (error) {
     console.log(error);
   }
