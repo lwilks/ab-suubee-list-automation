@@ -98,6 +98,8 @@ function handleSubmission() {
       progressBar.setCompleted();
       mainWindow.setProgressBar(-1)
     } catch (error) {
+      progressBar.setCompleted()
+      mainWindow.setProgressBar(-1)      
       dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
       console.log('Error: '+error)
     }
@@ -137,7 +139,9 @@ function handleSubmission() {
       progressBar.setCompleted();
       mainWindow.setProgressBar(-1)
     } catch (error) {
-      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      progressBar.setCompleted()
+      mainWindow.setProgressBar(-1)      
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error.errorCode })
       console.log('Error: '+error)
     }
   });
@@ -147,7 +151,7 @@ function handleSubmission() {
       store.set('igdetails', { igapikey, iguser, igpass });      
       store.set('ab_lists_path', ab_lists_path);
     } catch(error) {
-      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error.errorCode })
       console.log('Error: '+error)      
     }
   });

@@ -178,7 +178,7 @@ var upload_lists = async function(igusername, igpassword, igapikey, listprefix, 
             //await IG.createWatchlist(watchlist.name, watchlist.epics)
           }
     } catch(error) {
-        console.log(error)
+        throw(error.body)
     }
 };
 

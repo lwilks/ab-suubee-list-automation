@@ -52,7 +52,8 @@ var get_lists = async function(path) {
             var translated_list_entry = epic_dicts.epic_dict[list_entry][0]+'.'+exchanges[epic_dicts.epic_dict[list_entry][1]]+'\n'
             //var translated_list_entry = epic_dicts.epic_dict[list_entry][0]+'.'+epic_dicts.epic_dict[list_entry][1]+'\n'
             if (isStrongSector) { strongSectorListFile.write(translated_list_entry) }
-            if (!isStrongSector && !isUSList && !isShortList) { allStocksListFile.write(translated_list_entry) }
+            //if (!isStrongSector && !isUSList && !isShortList) { allStocksListFile.write(translated_list_entry) }
+            if (!isUSList && !isShortList) { allStocksListFile.write(translated_list_entry) }
             if (isUSList && !isUSShortList) { allUSStocksListFile.write(translated_list_entry) }
             listFile.write(translated_list_entry)
         }
@@ -67,7 +68,7 @@ var get_lists = async function(path) {
     fs.copyFileSync(allUSStocksListFile.path, path+"/SB-US-All Stocks+S&P.tls")
     fs.copyFileSync(allUSStocksListFile.path, path+"/SB-US-All Stocks+P.tls")
   } catch (error) {
-    console.log(error);
+    throw(error)
   }
 }
 
