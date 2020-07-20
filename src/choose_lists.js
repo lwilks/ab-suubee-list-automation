@@ -24,7 +24,11 @@ document.querySelector('#browse_btn').addEventListener('click', function(e) {
 
 ipcRenderer.on('ab_path_sent', (event, arg) => {
     document.querySelector('#listpath').value = arg
-    ipcRenderer.send('get_valid_lists', arg);
+    var args = {
+        listpath: arg,
+        ext: '*.tls'
+    }
+    ipcRenderer.send('get_valid_lists', args);
 });
 
 ipcRenderer.send('get_push_list_values');
@@ -32,7 +36,11 @@ ipcRenderer.send('get_push_list_values');
 ipcRenderer.on('push_list_values_sent', (event, listpath, listprefix, selectedlists) => {  
     if (listpath.length) {
         document.querySelector('#listpath').value = listpath
-        ipcRenderer.send('get_valid_lists', listpath);   
+        var args = {
+            listpath: listpath,
+            ext: '*.tls'
+        }
+        ipcRenderer.send('get_valid_lists', args);  
     }
     if (listprefix.length) {
         document.querySelector('#listprefix').value = listprefix

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Suubee List Automation</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="centered-div">
+      <h1 style="margin-bottom: 0">Choose Lists</h1>
+    </div>
+    <div class="wrapper iress">
+      <form class="choose_lists">
+
+        <p>
+          <label for="listpath">Directory to add lists from:</label>
+          <input type="text" class="path_input" id="listpath" name="listpath" placeholder="Path to lists...">
+          <button id="browse_btn" class="button browse_btn">...</button>
+        </p>
+
+        <p></p>
+        <p></p>
+        <!-- <p>
+          <label for="listprefix">List prefix:</label>
+          <input type="text" id="listprefix" name="listprefix" placeholder="Your list prefix...">          
+        </p> -->
+
+        <p class="double-row">
+          <label for="addlists">Lists to add:</label>
+
+          <select name="addlists" id="addlists" multiple>
+          </select>          
+        </p>
+        <p>
+          </br></br></br></br></br>
+          <button id="convertlist" class="button select_item_btn">&gt;</button></br></br>
+          <!-- <button id="removelist" class="button select_item_btn">&lt;</button> -->
+        </p>
+        <p class="double-row">
+          <label for="listoutput">Output:</label>
+
+          <textarea id="listoutput" name="listoutput" cols="40" rows="16"></textarea>
+          <!-- <select name="selectedlists" id="selectedlists" multiple>
+          </select>           -->
+          <button id="copy_btn" class="button">Copy to Clipboard</button>
+        </p>        
+
+        <!-- <p class="full-width btn-center">
+          <button id="push_list_btn" class="button">Push Lists</button></br></br>
+        </p> -->
+
+        <p class="full-width btn-center">
+          <a href="index.html"><button id="back_btn" class="button">Back</button></a>
+        </p>
+      </form>
+    </div>
+    <script src="iRess.js"></script>
+  </body>
+</html>

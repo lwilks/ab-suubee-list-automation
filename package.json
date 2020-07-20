@@ -1,7 +1,7 @@
 {
   "name": "ab-subee-list-automation",
   "productName": "ab-subee-list-automation",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "AmiBroker-Suubee List Automation",
   "main": "src/main.js",
   "scripts": {
@@ -80,6 +80,7 @@
     "@electron-forge/maker-squirrel": "6.0.0-beta.52",
     "@electron-forge/maker-zip": "6.0.0-beta.52",
     "@electron-forge/publisher-github": "^6.0.0-beta.52",
-    "electron": "9.1.0"
+    "electron": "9.1.0",
+    "electron-reload": "^1.5.0"
   }
 }

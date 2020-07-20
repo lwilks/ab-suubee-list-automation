@@ -73,6 +73,9 @@ form.choose_lists .full-width {
 p.double-row select {
   height: 200px;
 }
+.iress p.double-row select {
+  height: 300px;
+}
 form.choose_lists .browse_btn {
   width: 20%;
   margin-top: 0;
@@ -95,4 +98,7 @@ input[type=text].path_input {
 }
 #listprefix {
   width: 80px;
+}
+#copy_btn {
+  width: 342px;
 }

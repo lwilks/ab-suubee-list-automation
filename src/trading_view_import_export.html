@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Suubee List Automation</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="centered-div">
+      <h1 style="margin-bottom: 0">TradingView \ AmiBroker Conversions</h1>
+    </div>
+    <div class="wrapper trading_view">
+      <form class="choose_lists">
+        <p>
+          <label for="conversion">Conversion:</label>
+          <select id="conversion" name="conversion">
+            <option value="ab">Trading View -> Amibroker</option>
+            <option value="tv">Amibroker -> Trading View</option>
+          </select>            
+          <label for="listpathin">Directory to add lists from:</label>
+          <input type="text" class="path_input" id="listpathin" name="listpathin" placeholder="Path to lists...">
+          <button id="browse_btn" class="button browse_btn">...</button>
+
+          <label for="listpathout">Directory to output files to:</label>
+          <input type="text" class="path_input" id="listpathout" name="listpathout" placeholder="Path to lists...">
+          <button id="browse_btn_out" class="button browse_btn">...</button>                       
+        </p>
+        <p class="double-row">
+        </p>
+        <p class="double-row">
+          <label for="addlists">Lists to convert:</label>
+
+          <select name="addlists" id="addlists" multiple>
+          </select>          
+        </p>
+
+        <p class="full-width btn-center">
+          <br/><br/>
+          <button id="convert_btn" class="button">Convert Selected Lists</button></br></br>
+        </p>
+
+        <p class="full-width btn-center">
+          <a href="index.html"><button id="back_btn" class="button">Back</button></a>
+        </p>
+      </form>
+    </div>
+    <script src="trading_view_import_export.js"></script>
+  </body>
+</html>

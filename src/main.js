@@ -5,14 +5,16 @@ const glob = require("glob")
 
 const upload_lists = require('./upload_lists_to_ig')
 const get_lists = require('./get_lists')
+const iress_export = require('./iRess_export')
+const tv_import_export = require('./tv_import_export')
 const Store = require('./store');
 
 const fs = require('fs')
 
 //the first argument can be: a file, directory or glob pattern
-// require('electron-reload')(__dirname, {
-//   electron: path.join(__dirname, '..', 'node_modules', '.bin', 'electron.ps1')
-// });
+require('electron-reload')(__dirname, {
+  electron: path.join(__dirname, '..', 'node_modules', '.bin', 'electron.ps1')
+});
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -32,7 +34,15 @@ const store = new Store({
     ab_lists_path: '',
     listpath: '',
     listprefix: 'LA',
-    selectedlists: []
+    selectedlists: [],
+    iresslistpath: '',
+    conversion: '',
+    tvlistin: '',
+    tvlistout: '',
+    tvselected: [],
+    ablistin: '',
+    ablistout: '',
+    abselected: []
   }
 });
 
@@ -196,17 +206,115 @@ function handleSubmission() {
       console.log('Error: '+error)      
     }
   });
+  ipcMain.on('update_iress_config', async (event, args) => {
+    try {
+      let { iresslistpath } = args;
+      store.set('iresslistpath', iresslistpath);      
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  });
+  ipcMain.on('get_iress_config', async (event, args) => {
+    try {
+      let iresslistpath = store.get('iresslistpath');
+      event.sender.send('iress_config_sent', iresslistpath)
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  });  
   ipcMain.on('get_valid_lists', async (event, args) => {
     try {
-      let listpath = args;
+      let { listpath, ext } = args;
       if (!fs.existsSync(listpath)) { throw('Path to Lists is not valid') }
-      let valid_lists = glob.sync("*.tls", { cwd: listpath } )
+      let valid_lists = glob.sync(ext, { cwd: listpath } )
       event.sender.send('valid_lists_sent', valid_lists, listpath )
     } catch(error) {
       dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
       console.log('Error: '+error)      
     }
-  });           
+  });
+  ipcMain.on('convert_list_iress', async (event, arg) => {
+    try {
+      let list_to_convert = arg;
+      if (!fs.existsSync(list_to_convert)) { throw('Path to Lists is not valid') }
+      let converted_list = await iress_export.iress_export(list_to_convert)
+      event.sender.send('converted_iress_sent', converted_list )
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  });
+  ipcMain.on('update_tv_config', async (event, args) => {
+    try {
+      let { tvlistin, tvlistout, tvselected, ablistin, ablistout, abselected, conversion } = args;
+
+      if (typeof tvlistin !== 'undefined') { store.set('tvlistin', tvlistin); }
+      if (typeof tvlistout !== 'undefined') { store.set('tvlistout', tvlistout);  }
+      if (typeof tvselected !== 'undefined') { store.set('tvselected', tvselected); }
+      if (typeof ablistin !== 'undefined') { store.set('ablistin', ablistin); }
+      if (typeof ablistout !== 'undefined') { store.set('ablistout', ablistout);  }
+      if (typeof abselected !== 'undefined') { store.set('abselected', abselected); }
+      if (typeof conversion !== 'undefined') { store.set('conversion', conversion); }
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  });
+  ipcMain.on('get_tv_config', async (event, args) => {
+    try {
+      let tvlistin = store.get('tvlistin');
+      let tvlistout = store.get('tvlistout');
+      let tvselected = store.get('tvselected');
+      let ablistin = store.get('ablistin');
+      let ablistout = store.get('ablistout');
+      let abselected = store.get('abselected');
+      let conversion = store.get('conversion');
+      event.sender.send('tv_config_sent', tvlistin, tvlistout, tvselected, ablistin, ablistout, abselected, conversion)
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  });
+  ipcMain.on('convert_list_tv', async (event, args) => {
+    try {
+      let {lists, outdir} = args;
+      if (!fs.existsSync(outdir)) { throw('Path to Lists is not valid') }
+      for (let i = 0; i < lists.length; i++) {
+        let doc = await tv_import_export.ab_to_tv(lists[i])
+        fs.writeFileSync(outdir+"\\"+path.basename(lists[i],'.tls')+'.txt', doc)
+      }
+      dialog.showMessageBox(options = { type: 'info', title: 'Conversion Complete!', message: 'Conversion Complete!' })
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  }); 
+  ipcMain.on('convert_list_ab', async (event, args) => {
+    try {
+      let {lists, outdir} = args;
+      if (!fs.existsSync(outdir)) { throw('Path to Lists is not valid') }
+      for (let i = 0; i < lists.length; i++) {
+        let doc = await tv_import_export.tv_to_ab(lists[i])
+        fs.writeFileSync(outdir+"\\"+path.basename(lists[i],'.txt')+'.tls', doc)
+      }
+      dialog.showMessageBox(options = { type: 'info', title: 'Conversion Complete!', message: 'Conversion Complete!' })
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  });
+  ipcMain.on('browse_path_out', async (event, args) => {
+    try {
+      let path = await dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
+      event.sender.send('out_path_sent', path.filePaths[0])
+    } catch(error) {
+      dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
+      console.log('Error: '+error)      
+    }
+  });                
+  
 };
 
 // This method will be called when Electron has finished
