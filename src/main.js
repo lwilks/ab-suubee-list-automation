@@ -12,9 +12,9 @@ const Store = require('./store');
 const fs = require('fs')
 
 //the first argument can be: a file, directory or glob pattern
-require('electron-reload')(__dirname, {
-  electron: path.join(__dirname, '..', 'node_modules', '.bin', 'electron.ps1')
-});
+// require('electron-reload')(__dirname, {
+//   electron: path.join(__dirname, '..', 'node_modules', '.bin', 'electron.ps1')
+// });
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
