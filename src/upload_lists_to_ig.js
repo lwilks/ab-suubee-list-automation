@@ -146,7 +146,7 @@ var upload_lists = async function(igusername, igpassword, igapikey, listprefix, 
         process.env.IG_PASSWORD=igpassword
         //process.env.IG_DEMO=FALSE        
         
-        await IG.login(true)
+        await IG.login(false)
         //const ig = new IG(igapikey, false)
 
         // Login to IG
