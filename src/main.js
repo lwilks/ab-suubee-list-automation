@@ -42,7 +42,8 @@ const store = new Store({
     tvselected: [],
     ablistin: '',
     ablistout: '',
-    abselected: []
+    abselected: [],
+    irconversion: ''
   }
 });
 
@@ -208,8 +209,9 @@ function handleSubmission() {
   });
   ipcMain.on('update_iress_config', async (event, args) => {
     try {
-      let { iresslistpath } = args;
-      store.set('iresslistpath', iresslistpath);      
+      let { iresslistpath, conversion } = args;
+      store.set('iresslistpath', iresslistpath);    
+      if (typeof conversion !== 'undefined') { store.set('irconversion', conversion); }  
     } catch(error) {
       dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
       console.log('Error: '+error)      
@@ -218,7 +220,8 @@ function handleSubmission() {
   ipcMain.on('get_iress_config', async (event, args) => {
     try {
       let iresslistpath = store.get('iresslistpath');
-      event.sender.send('iress_config_sent', iresslistpath)
+      let conversion = store.get('irconversion');
+      event.sender.send('iress_config_sent', iresslistpath, conversion)
     } catch(error) {
       dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })
       console.log('Error: '+error)      
@@ -237,9 +240,14 @@ function handleSubmission() {
   });
   ipcMain.on('convert_list_iress', async (event, arg) => {
     try {
-      let list_to_convert = arg;
-      if (!fs.existsSync(list_to_convert)) { throw('Path to Lists is not valid') }
-      let converted_list = await iress_export.iress_export(list_to_convert)
+      let { listpath, conversion } = arg;
+      if (!fs.existsSync(listpath)) { throw('Path to Lists is not valid') }
+      let converted_list
+      if (conversion === 'ab') {
+        converted_list = await iress_export.iress_export(listpath)
+      } else {
+        converted_list = await iress_export.iress_export_tv(listpath)
+      }
       event.sender.send('converted_iress_sent', converted_list )
     } catch(error) {
       dialog.showMessageBox(options = { type: 'error', title: 'Error!', message: 'Error: '+error })

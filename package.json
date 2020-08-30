@@ -1,7 +1,7 @@
 {
   "name": "ab-subee-list-automation",
   "productName": "ab-subee-list-automation",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "AmiBroker-Suubee List Automation",
   "main": "src/main.js",
   "scripts": {
