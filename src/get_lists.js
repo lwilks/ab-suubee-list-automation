@@ -50,7 +50,7 @@ var get_lists = async function(path) {
         let listParser = request(list_record[1]).pipe(parse({ trim: true }))
         for await (const list_entry of listParser) {
             var translated_list_entry
-            if (epic_dicts.epic_dict[list_entry][1] = 'US') {
+            if (epic_dicts.epic_dict[list_entry][1] === 'US') {
               translated_list_entry = epic_dicts.epic_dict[list_entry][0]+'\n'
             }
             else {
