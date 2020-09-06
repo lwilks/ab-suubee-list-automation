@@ -1,3 +1,16 @@
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+// process.env.HTTP_PROXY = 'http://192.168.1.242:5555'
+// process.env.HTTPS_PROXY = 'http://192.168.1.242:5555'
+
+// var globalTunnel = require('global-tunnel-ng');
+ 
+// globalTunnel.initialize({
+//   connect: 'neither',
+//   //protocol: 'https:',
+//   host: '192.168.1.242',
+//   port: 5555
+// });
+
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const ProgressBar = require('electron-progressbar');

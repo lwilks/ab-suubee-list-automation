@@ -146,8 +146,11 @@ var upload_lists = async function(igusername, igpassword, igapikey, listprefix, 
         process.env.IG_PASSWORD=igpassword
         //process.env.IG_DEMO='TRUE'
         
-        await IG.login(false)
+        await IG.login(true)
         //const ig = new IG(igapikey, false)
+
+        //delete require.cache[require.resolve('node-ig-api')]
+        //IG=require('node-ig-api')
 
         // Login to IG
         //await ig.login(igusername, igpassword)
@@ -177,6 +180,8 @@ var upload_lists = async function(igusername, igpassword, igapikey, listprefix, 
             await tryreq(async () => { await IG.createWatchlist(watchlist.name, watchlist.epics) })
             //await IG.createWatchlist(watchlist.name, watchlist.epics)
           }
+
+          //await IG.logout()
     } catch(error) {
         throw(error.body)
     }

@@ -1,7 +1,7 @@
 {
   "name": "ab-subee-list-automation",
   "productName": "ab-subee-list-automation",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "AmiBroker-Suubee List Automation",
   "main": "src/main.js",
   "scripts": {
@@ -68,7 +68,7 @@
     "electron-progressbar": "^1.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "glob": "^7.1.6",
-    "node-ig-api": "^2.0.4",
+    "node-ig-api": "github:lwilks/node-ig-api",
     "p-retry": "^4.2.0",
     "request": "^2.88.2",
     "update-electron-app": "^1.5.0"
