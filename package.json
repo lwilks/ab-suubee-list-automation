@@ -61,7 +61,7 @@
     }
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "csv-parse": "^4.10.1",
     "delay": "^4.3.0",
     "electron-log": "^4.2.2",
